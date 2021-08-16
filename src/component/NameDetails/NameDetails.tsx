@@ -4,6 +4,8 @@ import "./NameDetails.css";
 import { NftImage } from "../NftImage";
 import { NFT } from "../../modules/nft/types";
 import { OrderDetails } from "../OrderDetails";
+import { getNFTName } from "../../modules/utilis";
+import { Link } from "react-router-dom";
 
 type Props = {
   nft: NFT;
@@ -24,7 +26,7 @@ const NameDetails: React.FC<Props> = (props: Props) => {
                 <div className="Column left grow">
                   <Header size="large">
                     <div className="text">
-                      {nft.name}
+                      {getNFTName(nft)}
                       {nft.category === "ens" ? (
                         <div
                           className="Badge"
@@ -38,7 +40,7 @@ const NameDetails: React.FC<Props> = (props: Props) => {
                 </div>
                 <div className="Column right">
                   <div className="Owner">
-                    <a>
+                    <Link to={`/accounts/${nft.owner.address}`}>
                       <label>Owner</label>
                       <div className="blockie-wrapper">
                         <Profile
@@ -47,11 +49,11 @@ const NameDetails: React.FC<Props> = (props: Props) => {
                           imageOnly
                         />
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
-              <OrderDetails nft={nft} bid buy />
+              <OrderDetails nft={nft} />
             </Container>
           </div>
         </>

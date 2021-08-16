@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, HtmlHTMLAttributes } from "react";
 import { useLocation } from "react-router";
-// import { Navbar as BaseNavbar } from "decentraland-dapps/dist/containers";
-import { Link } from "react-router-dom";
+import { Navbar as BaseNavbar } from "decentraland-dapps/dist/containers";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Navbar.css";
+import { UserMenu } from "../UserMenu";
+// import { UserMenu } from "decentraland-ui";
 
 type ClassName = {
   market: string;
@@ -17,6 +20,16 @@ const Navbar: React.FC = () => {
     signin: "item",
   });
   const { pathname } = useLocation();
+  const history = useHistory();
+  const wallet = useSelector((state: any) => {
+    return state.xinfinWallet;
+  });
+  let rightMenu;
+  const navbarLogo = document.getElementsByClassName("dcl navbar-logo")[0];
+  if (navbarLogo !== undefined) {
+    navbarLogo.setAttribute("href", "https://xinfin.org/");
+    navbarLogo.setAttribute("target", "_blank");
+  }
 
   useEffect(() => {
     let path = {
@@ -24,44 +37,46 @@ const Navbar: React.FC = () => {
       collection: "item",
       signin: "item",
     };
-    switch (pathname) {
-      case "/":
-        path.market = "active item";
-        break;
-      case "/collection":
-        path.collection = "active item";
-        break;
-      case "/signin":
-        path.signin = "active item";
-        break;
-      default:
-        break;
+
+    if (pathname.includes("/collection")) {
+      path.collection = "active item";
+    } else if (pathname.includes("/signin")) {
+      path.signin = "active item";
+    } else if (pathname.includes("/payout")) {
+      path.collection = "active item";
+    } else {
+      path.market = "active item";
     }
     setClassname(path);
   }, [pathname]);
 
+  if (wallet.isConnected) {
+    rightMenu = { rightMenu: <UserMenu wallet={wallet} /> };
+  }
+
   return (
-    <div className="dcl navbar fullscreen" role="navigation">
-      <div className="ui container">
-        <div className="dcl navbar-menu">
-          <div className="ui secondary stackable menu">
-            <Link className={classname.market} to="/">
-              XinFin Marketplace
-            </Link>
-            <Link className={classname.collection} to="/collection">
-              My Collections
-            </Link>
-          </div>
-        </div>
-        <div className="dcl navbar-account">
-          <div className="ui secondary menu">
-            <Link className={`${classname.signin} sign-in-button`} to="/signin">
-              Sign In
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
+    <BaseNavbar
+      isFullscreen
+      isSignIn={
+        pathname.includes("/signin") && !wallet.isConnecting ? true : false
+      }
+      isConnected={wallet.isConnected}
+      isConnecting={wallet.isConnecting}
+      onSignIn={() => history.push("/signin")}
+      address={wallet.accounts}
+      mana={wallet.balance}
+      {...rightMenu}
+      leftMenu={
+        <>
+          <Link className={classname.market} to="/">
+            XinFin Marketplace
+          </Link>
+          <Link className={classname.collection} to="/collection">
+            My Collections
+          </Link>
+        </>
+      }
+    />
   );
 };
 

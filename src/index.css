@@ -1059,22 +1059,55 @@ a.ui.card.link:hover .meta {
   align-items: center;
   background-color: var(--card);
 }
+
 .AccountPage .PageHeader > div {
   margin: auto;
   text-align: center;
 }
+
 .AccountPage ul.Menu {
   margin-top: 0;
 }
+
 .AccountPage .blockie-address {
   margin-top: 16px;
   font-size: 17px;
 }
+
 .AccountPage .profile-name {
   margin-top: 12px;
   font-weight: 600;
   font-size: 18px;
 }
+
+.AccountPage .profile-address {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.AccountPage .profile-address-hash {
+  color: var(--secondary-text);
+  margin-right: 5px;
+}
+
+.AccountPage .copy {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.AccountPage .copied {
+  color: var(--primary);
+}
+
+.AccountPage .profile-copied-text-desktop {
+  position: absolute;
+}
+
+.AccountPage .profile-copy-text-mobile {
+  margin-top: 5px;
+}
+
 .SignInPage {
   display: flex;
   justify-content: center;
@@ -1572,6 +1605,7 @@ a.ui.card.link:hover .meta {
 }
 .NFTAction .back {
   /* background-image: url(/static/media/back.eb039d08.svg); */
+  background-image: url(./style/images/back.svg);
   background-repeat: no-repeat;
   background-position-x: 10px;
   background-position-y: 9px;
@@ -2133,4 +2167,8 @@ code {
 .WearableDetail .Highlight .left > .Unisex {
   background-image: url(./style/images/wearables/UnisexIcon.svg);
   background-size: 24px 24px;
+}
+
+.dcl.page.NFTBrowse {
+  padding-top: 20px;
 }

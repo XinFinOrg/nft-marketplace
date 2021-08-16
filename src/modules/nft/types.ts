@@ -11,6 +11,13 @@ export enum WearableBodyShape {
     BASE_FEMALE = "BaseFemale",
     BASE_MALE = "BaseMale"
 }
+
+export enum BodyShapeType {
+    BOTH = 'both',
+    MALE = 'male',
+    FEMALE = 'female'
+}
+
 export enum WearableCategory {
     EYEBROWS = 'eyebrows',
     EYES = 'eyes',
@@ -153,6 +160,16 @@ export const RARITY_COLOR = {
     [WearableRarity.UNCOMMON]: '#ED6D4F',
     [WearableRarity.COMMON]: '#ABC1C1'
 }
+
+export const RARITY_TITLE = {
+    [WearableRarity.UNIQUE]: "Grail-like: One-of-a-kind",
+    [WearableRarity.MYTHIC]: "For the lucky few: max 10",
+    [WearableRarity.LEGENDARY]: "Limited supply: max 100",
+    [WearableRarity.EPIC]: "Max supply: 1000",
+    [WearableRarity.RARE]: "Max supply: 5000",
+    [WearableRarity.UNCOMMON]: "Max supply: 10,000",
+    [WearableRarity.COMMON]: "Max supply: 100,000",
+};
 
 export type Data = {
     id: string
