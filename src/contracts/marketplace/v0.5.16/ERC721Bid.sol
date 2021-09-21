@@ -145,7 +145,7 @@ contract ERC721Bid is ERC721BidStorage {
     * @param _tokenId The NFT identifier which is being transferred
     * @param _data Additional data with no specified format
     */
-    //Refund kr dena baki sare bidders ko
+
     function onERC721Received(
         address payable _from,
         address /*_to*/,
